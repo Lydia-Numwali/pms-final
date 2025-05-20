@@ -224,18 +224,18 @@ const Requests: React.FC = () => {
         <Navbar />
         <div className="flex flex-col px-2 xs:px-6 sm:px-14 pt-8">
           <span className="text-lg font-semibold">
-            Hi👋, {user.firstName} {user.lastName}
+            Welcome Back, {user.firstName} {user.lastName}
           </span>
           <div className="w-full my-14">
             <div className="w-full justify-end sm:justify-between flex mb-6 items-center">
               <div>
                 <span className="hidden sm:flex my-8 text-xl">
-                  Your requests
+                  All Requests
                 </span>
               </div>
               <div className="bg-white w-11/12 dsm:w-10/12 sm:w-5/12 plg:w-3/12 rounded-3xl flex items-center relative h-12 justify-between">
                 <input
-                  placeholder="Search here..."
+                  placeholder="Search"
                   type="text"
                   className="outline-0 rounded-3xl bg-inherit w-10/12 p-2 pl-6"
                   onChange={(e) => {

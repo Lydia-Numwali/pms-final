@@ -3,9 +3,9 @@
   "info": {
     "version": "1.0.0",
     "title": "PMS API",
-    "description": "RCA Library Management System APIs Documentation"
+    "description": "XWZ Parking Management System API Documentation"
   },
-  "host": "localhost:5058",
+  "host": "localhost:5000",
   "basePath": "/api/v1",
   "tags": [
     {
@@ -17,8 +17,8 @@
       "description": "Users endpoints"
     },
     {
-      "name": "Books",
-      "description": "Book endpoints"
+      "name": "Parking",
+      "description": "Parking endpoints"
     }
   ],
   "schemes": [

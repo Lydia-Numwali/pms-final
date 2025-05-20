@@ -68,11 +68,11 @@ const Home: React.FC = () => {
   const columns: DataTableColumn<ISession>[] = [
     {
       accessor: "slot.number",
-      title: "🚘 Slot #",
+      title: "Slot",
     },
     {
       accessor: "name",
-      title: "🕓 Entry Time",
+      title: "Entry Time",
       render: ({ createdAt }) => (
         <span className="text-gray-700 text-sm">
           {format(new Date(createdAt), "MMM dd, yyyy, hh:mm a")}
@@ -81,7 +81,7 @@ const Home: React.FC = () => {
     },
     {
       accessor: "exitTime",
-      title: "🏁 Exit Time",
+      title: "Exit Time",
       render: ({ exitTime }: any) =>
         exitTime ? (
           <span className="text-gray-700 text-sm">
@@ -93,7 +93,7 @@ const Home: React.FC = () => {
     },
     {
       accessor: "paymentStatus",
-      title: "💳 Status",
+      title: "Status",
       render: ({ paymentStatus }) => (
         <span
           className={`px-3 py-1 rounded-full text-white text-xs font-medium ${
@@ -108,7 +108,7 @@ const Home: React.FC = () => {
     },
     {
       accessor: "payment.amount",
-      title: "💰 Amount",
+      title: "Amount",
       render: ({ payment }: any) => {
         const amount = payment?.amount;
         return typeof amount === "number" ? (
@@ -120,14 +120,14 @@ const Home: React.FC = () => {
     },
     {
       accessor: "plateNumber",
-      title: "🚙 Plate No.",
+      title: "Plate No.",
       render: ({ plateNumber }) => (
         <span className="text-gray-700 font-medium">{plateNumber}</span>
       ),
     },
     {
       accessor: "isExited",
-      title: "📍 Parking Status",
+      title: "Parking Status",
       render: ({ isExited, paymentStatus }) => {
         if (isExited) {
           return <span className="text-yellow-500 font-medium">Exited</span>;
@@ -146,7 +146,7 @@ const Home: React.FC = () => {
     },
     {
       accessor: "subject",
-      title: "⚙️ Actions",
+      title: "Actions",
       render: (row) => (
         <div className="flex gap-3">
           <button
@@ -229,14 +229,14 @@ const Home: React.FC = () => {
 
         <div className="flex flex-col px-4 sm:px-8 md:px-14 pt-8 w-full">
           <h1 className="text-xl sm:text-2xl font-bold mb-2 text-gray-800">
-            Hi 👋, {user.firstName} {user.lastName}
+            Welcome Back, {user.firstName} {user.lastName}
           </h1>
 
           <div className="mt-10">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6 mb-10">
               {/* Heading + Button */}
-              <div className="flex flex-col gap-3">
-                <h2 className="text-2xl font-semibold text-gray-900">
+              <div className="flex flex-row gap-10">
+                <h2 className="text-lg font-semibold text-gray-900">
                   Recently Accessed Sessions
                 </h2>
 
@@ -251,7 +251,7 @@ const Home: React.FC = () => {
               <div className="relative w-full sm:w-1/2 md:w-1/3">
                 <input
                   type="text"
-                  placeholder="🔍 Search sessions..."
+                  placeholder="Search"
                   onChange={(e) => {
                     setSearchKey(e.target.value);
                     setPage(1);
@@ -295,7 +295,7 @@ const Home: React.FC = () => {
                 totalRecords={meta?.total ?? 0}
                 highlightOnHover
                 highlightOnHoverColor="#e0f2fe"
-                noRecordsText="🚫 No sessions found"
+                noRecordsText="No sessions found"
                 paginationActiveBackgroundColor="#2563eb"
               />
             ) : (

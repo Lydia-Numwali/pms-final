@@ -29,7 +29,11 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: name === "feePerHour" ? parseFloat(value) : value,
+    }));
   };
 
   const handleSubmit = () => {
@@ -44,7 +48,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
   return (
     <Modal opened={isOpen} onClose={onClose} title="Edit Parking Slot" centered>
       <div className="flex flex-col gap-4">
-        {/* Number */}
+        {/* Slot Number */}
         <input
           name="number"
           value={form.number || ""}
@@ -53,7 +57,7 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
           className="border rounded px-3 py-2"
         />
 
-        {/* Size */}
+        {/* Slot Size */}
         <select
           name="size"
           value={form.size || ""}
@@ -96,6 +100,18 @@ const EditSlotModal: React.FC<EditSlotModalProps> = ({
           className="border rounded px-3 py-2"
         />
 
+        {/* Fee Per Hour */}
+        <input
+          type="number"
+          step="0.01"
+          name="feePerHour"
+          value={form.feePerHour ?? ""}
+          onChange={handleChange}
+          placeholder="Fee Per Hour"
+          className="border rounded px-3 py-2"
+        />
+
+        {/* Save Button */}
         <button
           className="bg-blue-600 text-white px-4 py-2 rounded"
           onClick={handleSubmit}

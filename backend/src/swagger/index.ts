@@ -6,7 +6,7 @@ const doc = {
     title: "PMS API",
     description: "RCA Library Management System APIs Documentation",
   },
-  host: "localhost:5058",
+  host: "localhost:5000",
   basePath: "/api/v1",
   schemes: ["http"],
   consumes: ["application/json"],

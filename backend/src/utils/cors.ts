@@ -1,6 +1,6 @@
 const whitelist = [
-  "http://localhost:3055",
-  "http://localhost:5058/api/v1/docs",
+  "http://localhost:3058",
+  "http://localhost:5000/api/v1/docs",
 ];
 const options: any = {
   origin: (origin: string, callback: Function) => {

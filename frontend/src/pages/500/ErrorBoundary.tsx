@@ -33,7 +33,7 @@ class ErrorBoundary extends Component<Props, State> {
             >
               <div className="w-full">
                 <Helmet>
-                  <title>500 | PMS</title>
+                  <title>500 | XWZ</title>
                 </Helmet>
                 <main className="w-full flex items-center justify-center flex-col pt-12 pb-16">
                   <section className="relative flex flex-col">

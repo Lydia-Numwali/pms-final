@@ -13,6 +13,6 @@ COPY . .
 
 RUN yarn build
 
-EXPOSE 3055
+EXPOSE 3058
 
 CMD ["yarn", "dev"]

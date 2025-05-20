@@ -2,7 +2,6 @@ import { Prisma } from "@prisma/client";
 import { config } from "dotenv";
 import { Request, Response } from "express";
 import prisma from "../prisma/prisma-client";
-import { AuthRequest } from "../types";
 import ServerResponse from "../utils/ServerResponse";
 import { paginator } from "../utils/paginator";
 
@@ -10,7 +9,7 @@ config();
 
 const createParkingSlot = async (req: Request, res: Response) => {
   try {
-    const { number, size, vehicleType, location } = req.body;
+    const { number, size, vehicleType, location, feePerHour } = req.body;
 
     const parkingSlot = await prisma.parkingSlot.create({
       data: {
@@ -18,6 +17,7 @@ const createParkingSlot = async (req: Request, res: Response) => {
         size,
         vehicleType,
         location,
+        feePerHour,
       },
     });
 
@@ -29,9 +29,7 @@ const createParkingSlot = async (req: Request, res: Response) => {
       const key = error.meta.target[0];
       return ServerResponse.error(
         res,
-        `${key.charAt(0).toUpperCase() + key.slice(1)} (${
-          req.body[key]
-        }) already exists`,
+        `${key.charAt(0).toUpperCase() + key.slice(1)} (${req.body[key]}) already exists`,
         400
       );
     }
@@ -42,9 +40,7 @@ const createParkingSlot = async (req: Request, res: Response) => {
 const createMultipleSlots = async (req: Request, res: Response) => {
   try {
     const slots = req.body.slots;
-    console.log("====================================");
-    console.log(slots);
-    console.log("====================================");
+
     const createdSlots = await prisma.parkingSlot.createMany({
       data: slots,
       skipDuplicates: true,
@@ -54,9 +50,6 @@ const createMultipleSlots = async (req: Request, res: Response) => {
       count: createdSlots.count,
     });
   } catch (error) {
-    console.log("====================================");
-    console.log(error);
-    console.log("====================================");
     return ServerResponse.error(res, "Error occurred", { error });
   }
 };
@@ -147,16 +140,24 @@ const findById = async (req: Request, res: Response) => {
 const updateSlot = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { number, size, vehicleType, location, status } = req.body;
-    const uSlot = await prisma.parkingSlot.findUnique({ where: { number } });
-    if (uSlot)
+    const { number, size, vehicleType, location, status, feePerHour } = req.body;
+
+    const existingSlot = await prisma.parkingSlot.findFirst({
+      where: {
+        number,
+        NOT: { id },
+      },
+    });
+
+    if (existingSlot)
       return ServerResponse.unauthorized(
         res,
         `Parking slot with number ${number} already exists`
       );
+
     const updatedSlot = await prisma.parkingSlot.update({
       where: { id },
-      data: { number, size, vehicleType, location, status },
+      data: { number, size, vehicleType, location, status, feePerHour },
     });
 
     return ServerResponse.success(res, "Parking slot updated successfully", {

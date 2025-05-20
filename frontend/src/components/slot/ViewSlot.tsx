@@ -6,6 +6,7 @@ import {
   FaVectorSquare,
   FaCarSide,
   FaMapMarkerAlt,
+  FaMoneyBillWave,
 } from "react-icons/fa";
 
 interface ViewSlotModalProps {
@@ -68,6 +69,14 @@ const ViewSlotModal: React.FC<ViewSlotModalProps> = ({
           <p className="text-lg font-medium text-gray-700">
             <span className="text-gray-500">Location: </span>
             {slot.location}
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <FaMoneyBillWave className="text-primary-blue text-2xl" />
+          <p className="text-lg font-medium text-gray-700">
+            <span className="text-gray-500">Fee Per Hour: </span>
+            ${slot.feePerHour?.fixed()}
           </p>
         </div>
       </div>

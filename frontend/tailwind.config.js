@@ -44,8 +44,8 @@ export default {
       },
       colors: {
         "delete-red": "#d72222",
-        "primary-blue": "#1967D2",
-        "secondary-blue": "#E7EDF9",
+        "primary-blue": "#1958F7",
+        "secondary-blue": "#1958F7",
         "primary-dark-blue": "#202124",
         "primary-gray": "#696969",
         "secondary-gray": "#ECEDF2",
@@ -55,13 +55,14 @@ export default {
       },
     },
     fontFamily: {
-      sans: ["ui-sans-serif", "system-ui"],
-      serif: ["ui-serif", "Georgia"],
-      mono: ["ui-monospace", "SFMono-Regular"],
-      display: ["Oswald"],
-      body: ['"Open Sans"'],
-      jost: ['"Jost"'],
-    },
+    sans: ["ui-sans-serif", "system-ui"],
+    serif: ["ui-serif", "Georgia"],
+    mono: ["ui-monospace", "SFMono-Regular"],
+    display: ["Oswald"],
+    body: ['"Open Sans"'],
+    nunito: ['"Nunito"'],
+}
+
   },
   plugins: [],
 };

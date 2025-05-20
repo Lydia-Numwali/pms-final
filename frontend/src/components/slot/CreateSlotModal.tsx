@@ -22,6 +22,7 @@ const CreateSlotModal: React.FC<ModalProps> = ({
     size: SlotSize.MEDIUM,
     vehicleType: VehicleType.CAR,
     location: "",
+    feePerHour: "", // New field
   });
 
   const [errors, setErrors] = useState<any>({});
@@ -30,9 +31,11 @@ const CreateSlotModal: React.FC<ModalProps> = ({
     const newErrors: any = {};
     if (!formData.number) newErrors.number = "Slot number is required";
     if (!formData.size) newErrors.size = "Slot size is required";
-    if (!formData.vehicleType)
-      newErrors.vehicleType = "Vehicle type is required";
+    if (!formData.vehicleType) newErrors.vehicleType = "Vehicle type is required";
     if (!formData.location) newErrors.location = "Location is required";
+    if (!formData.feePerHour || isNaN(Number(formData.feePerHour))) {
+      newErrors.feePerHour = "Valid charging fee per hour is required";
+    }
 
     return newErrors;
   };
@@ -138,6 +141,26 @@ const CreateSlotModal: React.FC<ModalProps> = ({
             />
             {errors.location && (
               <p className="text-red-500 text-sm">{errors.location}</p>
+            )}
+          </div>
+
+          {/* Charging Fee per Hour */}
+          <div className="mb-4">
+            <label className="block text-sm font-medium">
+              Charging Fee per Hour (USD)
+            </label>
+            <input
+              type="number"
+              name="feePerHour"
+              value={formData.feePerHour}
+              onChange={handleChange}
+              className="border rounded w-full p-2"
+              placeholder="e.g., 2.5"
+              step="0.01"
+              min="0"
+            />
+            {errors.feePerHour && (
+              <p className="text-red-500 text-sm">{errors.feePerHour}</p>
             )}
           </div>
 

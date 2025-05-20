@@ -14,10 +14,10 @@
     "prisma:studio": "npx prisma studio --schema src/prisma/schema.prisma",
     "prisma:all": "npm run prisma:migrate && npm run prisma:gen",
     "prisma:seed": "ts-node src/seeders/seed.ts",
-    "docker:build": "docker build -t jodos/ne-restful .",
-    "docker:run": "docker run -p 5058:5058 jodos/ne-restful"
+    "docker:build": "docker build -t lydia/ne-restful .",
+    "docker:run": "docker run -p 5000:5000 lydia/ne-restful"
   },
-  "author": "jodos",
+  "author": "Lydia-Numwali",
   "license": "MIT",
   "dependencies": {
     "@prisma/client": "^5.9.1",

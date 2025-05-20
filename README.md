@@ -215,9 +215,3 @@ MIT License. See [LICENSE](./LICENSE) for details.
 
 ---
 
-## 💬 Contact
-
-Built with ❤️ by \[Jodos].
-
-For feedback or support, contact \[[jeandedieu2030@gmail.com](mailto:jeandedieu2030@gmail.com)].
-````

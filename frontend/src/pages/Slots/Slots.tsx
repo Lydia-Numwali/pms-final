@@ -21,8 +21,7 @@ const Slots: React.FC = () => {
   const [limit, setLimit] = useState<number>(PAGE_SIZES[0]);
   const [searchKey, setSearchKey] = useState<string>("");
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const [isMultipleModalOpen, setIsMultipleModalOpen] =
-    useState<boolean>(false);
+  const [isMultipleModalOpen, setIsMultipleModalOpen] = useState<boolean>(false);
   const [isModalClosed, setIsModalClosed] = useState<boolean>(false);
   const [selectedSlot, setSelectedSlot] = useState<any | null>(null);
   const [viewModalOpen, setViewModalOpen] = useState(false);
@@ -38,15 +37,16 @@ const Slots: React.FC = () => {
       setIsModalClosed,
     });
   };
+
   const columns: DataTableColumn[] = [
     {
       accessor: "number",
-      title: "Slot number ",
+      title: "Slot Number",
       sortKey: "id",
     },
     {
       accessor: "vehicleType",
-      title: "vehicle type",
+      title: "Vehicle Type",
     },
     {
       accessor: "size",
@@ -60,80 +60,68 @@ const Slots: React.FC = () => {
       accessor: "status",
       title: "Status",
     },
-
+    {
+      accessor: "feePerHour",
+      title: "Fee per Hour",
+      render: (slot: any) =>
+        new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
+        }).format(slot.feePerHour),
+    },
     {
       accessor: "",
       title: "Actions",
-      render: (slot: any) => {
-        return (
-          <div className="flex gap-2">
+      render: (slot: any) => (
+        <div className="flex gap-2">
+          <button
+            onClick={() => {
+              setSelectedSlot(slot);
+              setViewModalOpen(true);
+            }}
+            className="bg-primary-blue text-white px-4 py-2 rounded-md"
+          >
+            View
+          </button>
+          <button
+            onClick={() => {
+              setSelectedSlot(slot);
+              setEditModalOpen(true);
+            }}
+            className="bg-primary-blue text-white px-4 py-2 rounded-md"
+          >
+            Edit
+          </button>
+          <>
             <button
-              onClick={() => {
-                setSelectedSlot(slot);
-                setViewModalOpen(true);
-              }}
-              className="bg-primary-blue text-white px-4 py-2 rounded-md"
+              onClick={() => setShowConfirm(true)}
+              className="bg-red-500 text-white px-4 py-2 rounded-md"
             >
-              View
+              Delete
             </button>
-
-            <button
-              onClick={() => {
-                setSelectedSlot(slot);
-                setEditModalOpen(true);
-              }}
-              className="bg-primary-blue text-white px-4 py-2 rounded-md"
-            >
-              Edit
-            </button>
-            <>
-              <button
-                onClick={() => setShowConfirm(true)}
-                className="bg-red-500 text-white px-4 py-2 rounded-md"
-              >
-                Delete
-              </button>
-
-              <ConfirmDialog
-                isOpen={showConfirm}
-                onClose={() => setShowConfirm(false)}
-                onConfirm={() => handleDelete(slot.id)}
-                message="Are you sure you want to delete this slot?"
-              />
-            </>
-          </div>
-        );
-      },
+            <ConfirmDialog
+              isOpen={showConfirm}
+              onClose={() => setShowConfirm(false)}
+              onConfirm={() => handleDelete(slot.id)}
+              message="Are you sure you want to delete this slot?"
+            />
+          </>
+        </div>
+      ),
     },
   ];
 
   const userSlice = useSelector((state: any) => state.userSlice);
   const role: string = userSlice.user.role;
+
   useEffect(() => {
     getSlots({ page, limit, setLoading, setMeta, setSlots, searchKey });
 
     if (isModalClosed) {
-      getSlots({
-        page,
-        limit,
-        setLoading,
-        setMeta,
-        setSlots,
-        searchKey,
-      });
-
+      getSlots({ page, limit, setLoading, setMeta, setSlots, searchKey });
       setIsModalClosed(false);
     }
-  }, [
-    isModalClosed,
-    page,
-    limit,
-    searchKey,
-    setLoading,
-    setMeta,
-    setSlots,
-    role,
-  ]);
+  }, [isModalClosed, page, limit, searchKey, setLoading, setMeta, setSlots, role]);
 
   return (
     <div className="w-full flex min-h-screen">
@@ -143,17 +131,14 @@ const Slots: React.FC = () => {
       </Helmet>
       <div className="w-full lg:ml-[16.6667%] flex flex-col">
         <Navbar />
-        <div className=" flex flex-col px-2 xs:px-6 sm:px-14 pt-8">
+        <div className="flex flex-col px-2 xs:px-6 sm:px-14 pt-8">
           <span className="text-lg font-semibold">
-            Hi👋, {user.firstName} {user.lastName}
+            Welcome Back, {user.firstName} {user.lastName}
           </span>
           <div className="w-full my-14">
             <div className="w-full justify-end sm:justify-between flex mb-6 items-center">
               <div>
-                <span className="hidden sm:flex my-8 text-xl">
-                  here all slots in system
-                </span>
-
+                <span className="hidden sm:flex my-8 text-xl">All slots</span>
                 <div className="flex items-center justify-center space-x-6 mt-8">
                   <button
                     className="bg-primary-blue text-white rounded-lg py-3 px-8 text-lg font-semibold transition-colors duration-300 hover:bg-blue-700 shadow-md"
@@ -162,9 +147,7 @@ const Slots: React.FC = () => {
                   >
                     Register New Slot in Parking
                   </button>
-
                   <span className="text-gray-500 font-medium">or</span>
-
                   <button
                     className="bg-primary-blue text-white rounded-lg py-3 px-8 text-lg font-semibold transition-colors duration-300 hover:bg-blue-700 shadow-md"
                     onClick={() => setIsMultipleModalOpen(true)}
@@ -176,7 +159,7 @@ const Slots: React.FC = () => {
               </div>
               <div className="bg-white w-11/12 dsm:w-10/12 sm:w-5/12 plg:w-3/12 rounded-3xl flex items-center relative h-12 justify-between">
                 <input
-                  placeholder="Search here..."
+                  placeholder="Search"
                   type="text"
                   className="outline-0 rounded-3xl bg-inherit w-10/12 p-2 pl-6"
                   onChange={(e) => {
@@ -185,7 +168,7 @@ const Slots: React.FC = () => {
                   }}
                 />
                 <button
-                  onClick={() => {
+                  onClick={() =>
                     getSlots({
                       page,
                       limit,
@@ -193,8 +176,8 @@ const Slots: React.FC = () => {
                       setMeta,
                       setSlots,
                       searchKey,
-                    });
-                  }}
+                    })
+                  }
                   className="absolute top-1 mx-auto bottom-1 right-2 bg-primary-blue w-10 h-10 rounded-full flex items-center justify-center"
                 >
                   <BiSearch color="white" size={25} />
@@ -247,7 +230,6 @@ const Slots: React.FC = () => {
         onClose={() => setViewModalOpen(false)}
         slot={selectedSlot}
       />
-
       <EditSlotModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}

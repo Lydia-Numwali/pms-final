@@ -19,6 +19,6 @@ RUN yarn prisma:all
 
 RUN yarn build
 
-EXPOSE 5058
+EXPOSE 5000
 
 CMD ["yarn", "dev"]

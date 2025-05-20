@@ -57,7 +57,7 @@ const Login: React.FC = () => {
       </Helmet>
       <div className="flex flex-col rounded-xl border border-slate-200 p-10 w-11/12 msm:w-[80%] sm:w-[70%] md:w-[50%] mlg:w-[40%] lg:w-[35%] 2xl:w-[28%] bg-white items-center">
         <img src={Logo} alt="Logo" className="w-24" />
-        <span className="text-2xl my-1"> PMS</span>
+        <span className="text-2xl my-1"> XWZ LTD</span>
         <span className="my-4 ">
           Don't have an account yet?{" "}
           <Link to={"/auth/signup"} className="text-primary-blue">

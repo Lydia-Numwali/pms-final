@@ -56,8 +56,7 @@ model User {
     Payment        Payment[]
     Vehicle        Vehicle[]
     SlotRequest    SlotRequest[]
-    transfersFrom  VehicleTransfer[] @relation("TransfersFrom")
-    transfersTo    VehicleTransfer[] @relation("TransfersTo")
+
 
     @@map("users")
 }
@@ -75,7 +74,7 @@ model Vehicle {
     requests        SlotRequest[]
     createdAt       DateTime          @default(now()) @map("created_at")
     updatedAt       DateTime          @updatedAt @map("updated_at")
-    VehicleTransfer VehicleTransfer[]
+    
 
     @@map("vehicles")
 }
@@ -108,6 +107,7 @@ model ParkingSlot {
     vehicleType    VehicleType
     location       String
     status         SlotStatus       @default(AVAILABLE)
+    feePerHour     Float           @default(2.5) @map("fee_per_hour") // Example default value
     createdAt      DateTime         @default(now()) @map("created_at")
     updatedAt      DateTime         @updatedAt @map("updated_at")
     ParkingSession ParkingSession[]
@@ -161,27 +161,5 @@ model Otp {
     @@map("otps")
 }
 
-enum TransferStatus {
-    PENDING
-    APPROVED
-    REJECTED
-}
 
-model VehicleTransfer {
-    id           String         @id @default(uuid())
-    vehicleId    String         @map("vehicle_id")
-    fromUserId   String         @map("from_user_id")
-    description  String         @map("description")
-    toUserId     String         @map("to_user_id")
-    transferDate DateTime       @default(now()) @map("transfer_date")
-    price        Float?         @map("price")
-    status       TransferStatus @default(PENDING)
-    createdAt    DateTime       @default(now()) @map("created_at")
-    updatedAt    DateTime       @updatedAt @map("updated_at")
 
-    vehicle  Vehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
-    fromUser User    @relation("TransfersFrom", fields: [fromUserId], references: [id])
-    toUser   User    @relation("TransfersTo", fields: [toUserId], references: [id])
-
-    @@map("vehicle_transfers")
-}

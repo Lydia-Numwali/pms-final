@@ -30,11 +30,11 @@ export const sendApprovalEmail = async (
     );
   }
 
-  console.log("Sending approval email to:", to);
-  console.log("Using credentials:", process.env.NODEMAILER_EMAIL);
-  console.log("Vehicle plate:", vehicle.plateNumber);
-  console.log("Slot number:", slotNumber);
-  console.log("Slot location:", slotLocation);
+  // console.log("Sending approval email to:", to);
+  // console.log("Using credentials:", process.env.NODEMAILER_EMAIL);
+  // console.log("Vehicle plate:", vehicle.plateNumber);
+  // console.log("Slot number:", slotNumber);
+  // console.log("Slot location:", slotLocation);
 
   const mailOptions = {
     from: `"Vehicle Parking System" <${process.env.NODEMAILER_EMAIL}>`,

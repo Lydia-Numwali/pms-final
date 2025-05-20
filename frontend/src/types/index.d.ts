@@ -46,6 +46,7 @@ export interface ISlot extends TimestampAudit {
   vehicleType: VehicleType;
   location: string;
   status: SlotStatus;
+  feePerHour:string;
 }
 
 export interface CreateSlot {
@@ -53,6 +54,7 @@ export interface CreateSlot {
   size: SlotSize;
   vehicleType: VehicleType;
   location: string;
+  feePerHour: string; 
 }
 // Session
 export interface ISession extends TimestampAudit {

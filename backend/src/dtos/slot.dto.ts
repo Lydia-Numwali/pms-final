@@ -4,9 +4,11 @@ import {
   IsNotEmpty,
   IsString,
   ValidateNested,
+  IsNumber,
+  Min,
 } from "class-validator";
-import { SlotSize, VehicleType } from "../enum"; // Make sure these enums are defined in TS too
 import { Type } from "class-transformer";
+import { SlotSize, VehicleType } from "../enum"; // Ensure these enums are defined correctly
 
 export class CreateParkingSlotDTO {
   @IsString()
@@ -24,11 +26,16 @@ export class CreateParkingSlotDTO {
   @IsString()
   @IsNotEmpty()
   location: string;
+
+  @IsNumber()
+  @Min(0)
+  @Type(() => Number)
+  feePerHour: number;
 }
 
 export class CreateMultipleParkingSlotsDTO {
   @IsArray()
-  @ValidateNested({ each: true }) // validate each slot object deeply
+  @ValidateNested({ each: true }) // Validate each slot object
   @Type(() => CreateParkingSlotDTO)
   slots: CreateParkingSlotDTO[];
 }

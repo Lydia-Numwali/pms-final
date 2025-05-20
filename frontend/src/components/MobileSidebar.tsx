@@ -29,7 +29,7 @@ const MobileSidebar: React.FC = () => {
         {/* Header */}
         <div className="flex flex-col items-center justify-center mb-8">
           <img src={LogoRound} className="w-36 mx-auto" alt="" />
-          <span className="font-extrabold text-2xl text-gray-800">PMS</span>
+          <span className="font-extrabold text-2xl text-gray-800">XWZ LTD</span>
         </div>
 
         {/* Links */}

@@ -102,11 +102,23 @@ const AdminDashboard: React.FC = () => {
         <Navbar />
         <div className="px-4 sm:px-10 py-8 space-y-10">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
-            Welcome back, Admin 👋
+            Welcome back, Admin 
           </h1>
           <p className="text-gray-600 mb-6">
             Monitor and manage your vehicle parking system at a glance.
           </p>
+          {/*======= Search button ========*/}
+          <div className="flex justify-end">
+            <div className="bg-white rounded-full shadow-md flex items-center h-12 w-full sm:w-1/2 lg:w-1/4 px-4">
+              <input
+                type="text"
+                placeholder="Search something..."
+                className="flex-grow outline-none bg-transparent text-sm"
+                onChange={(e) => setSearchKey(e.target.value)}
+              />
+              <BiSearch className="text-gray-600" size={20} />
+            </div>
+          </div>
 
           {/* === Summary Cards === */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -135,19 +147,7 @@ const AdminDashboard: React.FC = () => {
               </div>
             ))}
           </div>
-
-          {/* === Search Bar === */}
-          <div className="flex justify-end">
-            <div className="bg-white rounded-full shadow-md flex items-center h-12 w-full sm:w-1/2 lg:w-1/4 px-4">
-              <input
-                type="text"
-                placeholder="Search something..."
-                className="flex-grow outline-none bg-transparent text-sm"
-                onChange={(e) => setSearchKey(e.target.value)}
-              />
-              <BiSearch className="text-gray-600" size={20} />
-            </div>
-          </div>
+          
 
           {/* === Recent Requests === */}
           <div>
