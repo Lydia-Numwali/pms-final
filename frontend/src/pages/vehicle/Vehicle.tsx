@@ -223,7 +223,7 @@ const Vehicle: React.FC = () => {
                     className="text-white bg-primary-blue rounded py-2 px-8 text-lg"
                     onClick={() => setIsModalOpen(true)}
                   >
-                    Register new Car
+                    Register New Car
                   </button>
                 )}
               </div>

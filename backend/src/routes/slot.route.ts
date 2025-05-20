@@ -39,7 +39,7 @@ ParkingSlotRouter2.patch(
   ParkingSlotController.updateSlot
 );
 
-// ✅ Delete parking slot
+// Delete parking slot
 ParkingSlotRouter2.delete(
   "/:id",
   [checkAdmin],

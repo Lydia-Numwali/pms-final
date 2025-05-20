@@ -2,7 +2,7 @@
 import { LogoRound } from "@/assets";
 import { logout } from "@/redux/slices/userReducer";
 import React from "react";
-import { BiLogOut} from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 import { MdDashboard, MdEventAvailable } from "react-icons/md";
 import { FaCar, FaClipboardList } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -36,6 +36,7 @@ const Sidebar: React.FC = () => {
       icon: <FaClipboardList size={20} />,
     },
   ];
+
   if (role.toLowerCase() === "admin") {
     menuItems.push({
       name: "Slots",
@@ -50,26 +51,31 @@ const Sidebar: React.FC = () => {
       <span className="font-bold text-xl text-center text-slate-700 mb-6">
         XWZ LTD
       </span>
+
       <div className="flex flex-col space-y-2">
-        {menuItems.map((item) => (
-          <Link
-            key={item.path}
-            to={item.path}
-            className={`flex items-center gap-3 px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-200 transition ${
-              location.pathname === item.path
-                ? "bg-slate-300/70 font-semibold"
-                : ""
-            }`}
-          >
-            {item.icon}
-            <span className="text-base">{item.name}</span>
-          </Link>
-        ))}
+        {menuItems.map((item) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <Link
+              key={item.path}
+              to={item.path}
+              className={`flex items-center gap-3 px-4 py-2 rounded-lg transition-colors duration-200 ${
+                isActive
+                  ? "bg-blue-600 text-white font-semibold"
+                  : "text-slate-700 hover:bg-blue-500 hover:text-white"
+              }`}
+            >
+              {item.icon}
+              <span className="text-base">{item.name}</span>
+            </Link>
+          );
+        })}
       </div>
+
       <div className="mt-auto pt-8">
         <button
           onClick={handleLogout}
-          className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-700 hover:bg-slate-200 transition"
+          className="flex items-center gap-3 px-4 py-2 rounded-lg text-slate-700 hover:bg-blue-500 hover:text-white transition-colors duration-200"
         >
           <BiLogOut size={22} />
           <span className="text-base">Logout</span>
@@ -78,4 +84,5 @@ const Sidebar: React.FC = () => {
     </div>
   );
 };
+
 export default Sidebar;

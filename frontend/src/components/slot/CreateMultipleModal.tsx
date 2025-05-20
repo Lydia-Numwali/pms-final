@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { BiLoaderAlt } from "react-icons/bi";
 import { SlotSize, VehicleType } from "@/enums";
-import { createSlots } from "@/services/slots"; // Your multi-slot create API
+import { createSlots } from "@/services/slots";
 import { CreateSlot } from "@/types";
 
 interface ModalProps {
@@ -10,8 +10,6 @@ interface ModalProps {
   loading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }
-
-
 
 const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
   isOpen,
@@ -25,6 +23,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
       size: SlotSize.MEDIUM,
       vehicleType: VehicleType.CAR,
       location: "",
+      feePerHour: "",
     },
   ]);
 
@@ -36,6 +35,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
     if (!slot.size) slotErrors.size = "Slot size is required";
     if (!slot.vehicleType) slotErrors.vehicleType = "Vehicle type is required";
     if (!slot.location) slotErrors.location = "Location is required";
+    if (!slot.feePerHour) slotErrors.feePerHour = "Fee per hour is required";
     return slotErrors;
   };
 
@@ -66,13 +66,14 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
         size: SlotSize.MEDIUM,
         vehicleType: VehicleType.CAR,
         location: "",
+        feePerHour: "",
       },
     ]);
     setErrors([...errors, {}]);
   };
 
   const removeSlot = (index: number) => {
-    if (slots.length === 1) return; // Prevent removing last slot
+    if (slots.length === 1) return;
     const updatedSlots = slots.filter((_, i) => i !== index);
     const updatedErrors = errors.filter((_, i) => i !== index);
     setSlots(updatedSlots);
@@ -85,12 +86,14 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
 
     setIsLoading(true);
     createSlots({ slots, setIsLoading, onClose });
+
     setSlots([
       {
         number: "",
         size: SlotSize.MEDIUM,
         vehicleType: VehicleType.CAR,
         location: "",
+        feePerHour: "",
       },
     ]);
     setErrors([{}]);
@@ -102,9 +105,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 bg-black bg-opacity-40 flex justify-center items-center z-50 p-4 overflow-auto">
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-4xl w-full max-h-full overflow-auto">
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-xl font-semibold">
-            Create Multiple Parking Slots
-          </h2>
+          <h2 className="text-xl font-semibold">Create Multiple Parking Slots</h2>
           <button
             onClick={onClose}
             className="text-red-500 font-bold text-xl leading-none"
@@ -147,9 +148,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
 
               {/* Vehicle Type */}
               <div className="mb-3">
-                <label className="block text-sm font-medium">
-                  Vehicle Type
-                </label>
+                <label className="block text-sm font-medium">Vehicle Type</label>
                 <select
                   name="vehicleType"
                   value={slot.vehicleType}
@@ -164,9 +163,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
                   ))}
                 </select>
                 {errors[index]?.vehicleType && (
-                  <p className="text-red-500 text-sm">
-                    {errors[index].vehicleType}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors[index].vehicleType}</p>
                 )}
               </div>
 
@@ -192,7 +189,7 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
               </div>
 
               {/* Location */}
-              <div className="mb-4">
+              <div className="mb-3">
                 <label className="block text-sm font-medium">Location</label>
                 <input
                   type="text"
@@ -203,11 +200,27 @@ const CreateMultipleSlotsModal: React.FC<ModalProps> = ({
                   placeholder="e.g., Basement A"
                 />
                 {errors[index]?.location && (
-                  <p className="text-red-500 text-sm">
-                    {errors[index].location}
-                  </p>
+                  <p className="text-red-500 text-sm">{errors[index].location}</p>
                 )}
               </div>
+              {/* Fee Per Hour */}
+              <div className="mb-3">
+              <label className="block text-sm font-medium">Fee Per Hour (USD)</label>
+              <input
+              type="number"
+              name="feePerHour"
+              value={slot.feePerHour}
+              onChange={(e) => handleChange(index, e)}
+              className="border rounded w-full p-2"
+              placeholder="e.g., 10.00"
+              step="0.01"
+              min="0"
+            />
+            {errors[index]?.feePerHour && (
+            <p className="text-red-500 text-sm">{errors[index].feePerHour}</p>
+          )}
+            </div>
+
             </div>
           ))}
 

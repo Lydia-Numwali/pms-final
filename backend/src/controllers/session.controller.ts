@@ -19,7 +19,7 @@ const createSession = async (req: Request, res: Response) => {
         id: userId,
       },
     });
-    if (!user) return ServerResponse.unauthorized(res, "You are not logged in");
+    if (!user) return ServerResponse.unauthorized(res, "First Log in");
     const vehicle = await prisma.vehicle.findFirst({
       where: {
         plateNumber: plateNumber,
@@ -29,7 +29,7 @@ const createSession = async (req: Request, res: Response) => {
     if (!vehicle)
       return ServerResponse.error(
         res,
-        "You don't have a vehicle with that plate number"
+        "Vehicle not found"
       );
 
     const slotRequest = await prisma.slotRequest.findFirst({
@@ -44,7 +44,7 @@ const createSession = async (req: Request, res: Response) => {
     if (!slotRequest)
       return ServerResponse.error(
         res,
-        " approved slot request found for this vehicle not found "
+        " No approved slot request for this vehicle "
       );
 
     const session = await prisma.parkingSession.create({
@@ -129,7 +129,7 @@ const fetchAllSessions = async (req: Request, res: Response) => {
     );
     return ServerResponse.success(
       res,
-      "Parking sessions fetched successfully",
+      "Success",
       {
         sessions: paginatedSessions,
         meta: paginator({
@@ -156,7 +156,7 @@ const fetchById = async (req: Request, res: Response) => {
         res,
         `Parking session with id ${id} as not found`
       );
-    return ServerResponse.success(res, "Parking session fetched successfully", {
+    return ServerResponse.success(res, "Success", {
       session,
     });
   } catch (error) {
@@ -188,7 +188,7 @@ const fetchSessionsByUser = async (req: Request, res: Response) => {
         id: userId,
       },
     });
-    if (!user) return ServerResponse.unauthorized(res, "You are not logged in");
+    if (!user) return ServerResponse.unauthorized(res, "Login first!");
     const whereCondition: Prisma.ParkingSessionWhereInput = {};
     if (searchKey) {
       whereCondition.OR = [

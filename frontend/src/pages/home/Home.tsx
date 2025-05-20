@@ -237,7 +237,7 @@ const Home: React.FC = () => {
               {/* Heading + Button */}
               <div className="flex flex-row gap-10">
                 <h2 className="text-lg font-semibold text-gray-900">
-                  Recently Accessed Sessions
+                  Recent Activity
                 </h2>
 
                 <button

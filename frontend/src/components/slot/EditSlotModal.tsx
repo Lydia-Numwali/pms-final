@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState, useEffect } from "react";
 import { Modal } from "@mantine/core";
-import { SlotSize, VehicleType } from "@/enums"; // Import your enums here
-import { ISlot } from "@/types"; // Import your slot interface
+import { SlotSize, VehicleType } from "@/enums"; 
+import { ISlot } from "@/types";
 
 interface EditSlotModalProps {
   isOpen: boolean;

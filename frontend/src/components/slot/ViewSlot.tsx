@@ -76,7 +76,9 @@ const ViewSlotModal: React.FC<ViewSlotModalProps> = ({
           <FaMoneyBillWave className="text-primary-blue text-2xl" />
           <p className="text-lg font-medium text-gray-700">
             <span className="text-gray-500">Fee Per Hour: </span>
-            ${slot.feePerHour?.fixed()}
+            {!isNaN(Number(slot.feePerHour))
+            ? `$${Number(slot.feePerHour).toFixed(2)}`
+            : "N/A"}
           </p>
         </div>
       </div>

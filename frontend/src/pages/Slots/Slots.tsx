@@ -41,12 +41,12 @@ const Slots: React.FC = () => {
   const columns: DataTableColumn[] = [
     {
       accessor: "number",
-      title: "Slot Number",
+      title: "Slot number ",
       sortKey: "id",
     },
     {
       accessor: "vehicleType",
-      title: "Vehicle Type",
+      title: "vehicle type",
     },
     {
       accessor: "size",
@@ -61,53 +61,57 @@ const Slots: React.FC = () => {
       title: "Status",
     },
     {
-      accessor: "feePerHour",
+      accessor: "fees_per_hour",
       title: "Fee per Hour",
-      render: (slot: any) =>
-        new Intl.NumberFormat("en-US", {
-          style: "currency",
-          currency: "USD",
-        }).format(slot.feePerHour),
-    },
+      render: (slot: any) => {
+    // Try multiple keys based on possible variations
+      const feeStr = slot.fees_per_hour ?? slot.feePerHour ?? slot.feesPerHour ?? "0";
+      const fee = parseFloat(feeStr);
+      return `$${isNaN(fee) ? "0.00" : fee.toFixed(2)}`;
+  }
+},
     {
       accessor: "",
       title: "Actions",
-      render: (slot: any) => (
-        <div className="flex gap-2">
-          <button
-            onClick={() => {
-              setSelectedSlot(slot);
-              setViewModalOpen(true);
-            }}
-            className="bg-primary-blue text-white px-4 py-2 rounded-md"
-          >
-            View
-          </button>
-          <button
-            onClick={() => {
-              setSelectedSlot(slot);
-              setEditModalOpen(true);
-            }}
-            className="bg-primary-blue text-white px-4 py-2 rounded-md"
-          >
-            Edit
-          </button>
-          <>
+      render: (slot: any) => {
+        return (
+          <div className="flex gap-2">
+            <button
+              onClick={() => {
+                setSelectedSlot(slot);
+                setViewModalOpen(true);
+              }}
+              className="bg-primary-blue text-white px-4 py-2 rounded-md transition-colors duration-300 hover:bg-blue-700 shadow-md"
+            >
+              View
+            </button>
+
+            <button
+              onClick={() => {
+                setSelectedSlot(slot);
+                setEditModalOpen(true);
+              }}
+              className="bg-primary-blue text-white px-4 py-2 rounded-md transition-colors duration-300 hover:bg-blue-700 shadow-md"
+            >
+              Edit
+            </button>
+
             <button
               onClick={() => setShowConfirm(true)}
-              className="bg-red-500 text-white px-4 py-2 rounded-md"
+              className="bg-red-500 text-white px-4 py-2 rounded-md transition-colors duration-300 hover:bg-red-600 shadow-md"
             >
               Delete
             </button>
+
             <ConfirmDialog
               isOpen={showConfirm}
               onClose={() => setShowConfirm(false)}
               onConfirm={() => handleDelete(slot.id)}
               message="Are you sure you want to delete this slot?"
             />
-          </>
-        </div>
-      ),
+          </div>
+        );
+      },
     },
   ];
 
@@ -118,10 +122,27 @@ const Slots: React.FC = () => {
     getSlots({ page, limit, setLoading, setMeta, setSlots, searchKey });
 
     if (isModalClosed) {
-      getSlots({ page, limit, setLoading, setMeta, setSlots, searchKey });
+      getSlots({
+        page,
+        limit,
+        setLoading,
+        setMeta,
+        setSlots,
+        searchKey,
+      });
+
       setIsModalClosed(false);
     }
-  }, [isModalClosed, page, limit, searchKey, setLoading, setMeta, setSlots, role]);
+  }, [
+    isModalClosed,
+    page,
+    limit,
+    searchKey,
+    setLoading,
+    setMeta,
+    setSlots,
+    role,
+  ]);
 
   return (
     <div className="w-full flex min-h-screen">
@@ -139,6 +160,7 @@ const Slots: React.FC = () => {
             <div className="w-full justify-end sm:justify-between flex mb-6 items-center">
               <div>
                 <span className="hidden sm:flex my-8 text-xl">All slots</span>
+
                 <div className="flex items-center justify-center space-x-6 mt-8">
                   <button
                     className="bg-primary-blue text-white rounded-lg py-3 px-8 text-lg font-semibold transition-colors duration-300 hover:bg-blue-700 shadow-md"
@@ -147,7 +169,9 @@ const Slots: React.FC = () => {
                   >
                     Register New Slot in Parking
                   </button>
+
                   <span className="text-gray-500 font-medium">or</span>
+
                   <button
                     className="bg-primary-blue text-white rounded-lg py-3 px-8 text-lg font-semibold transition-colors duration-300 hover:bg-blue-700 shadow-md"
                     onClick={() => setIsMultipleModalOpen(true)}
@@ -168,7 +192,7 @@ const Slots: React.FC = () => {
                   }}
                 />
                 <button
-                  onClick={() =>
+                  onClick={() => {
                     getSlots({
                       page,
                       limit,
@@ -176,9 +200,10 @@ const Slots: React.FC = () => {
                       setMeta,
                       setSlots,
                       searchKey,
-                    })
-                  }
-                  className="absolute top-1 mx-auto bottom-1 right-2 bg-primary-blue w-10 h-10 rounded-full flex items-center justify-center"
+                    });
+                  }}
+                  className="absolute top-1 mx-auto bottom-1 right-2 bg-primary-blue w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-300 hover:bg-blue-700 shadow-md"
+                  aria-label="Search slots"
                 >
                   <BiSearch color="white" size={25} />
                 </button>
@@ -230,6 +255,7 @@ const Slots: React.FC = () => {
         onClose={() => setViewModalOpen(false)}
         slot={selectedSlot}
       />
+
       <EditSlotModal
         isOpen={editModalOpen}
         onClose={() => setEditModalOpen(false)}

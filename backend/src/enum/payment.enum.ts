@@ -5,6 +5,6 @@ export enum PaymentStatus {
 
 export enum PaymentMethod {
   CASH,
-  CARD,
+  VISA_CARD,
   MOBILE,
 }
