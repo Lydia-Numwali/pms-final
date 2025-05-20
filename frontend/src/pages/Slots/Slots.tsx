@@ -41,12 +41,12 @@ const Slots: React.FC = () => {
   const columns: DataTableColumn[] = [
     {
       accessor: "number",
-      title: "Slot number ",
+      title: "Parking number ",
       sortKey: "id",
     },
     {
       accessor: "vehicleType",
-      title: "vehicle type",
+      title: "Vehicle type",
     },
     {
       accessor: "size",
@@ -64,7 +64,6 @@ const Slots: React.FC = () => {
       accessor: "fees_per_hour",
       title: "Fee per Hour",
       render: (slot: any) => {
-    // Try multiple keys based on possible variations
       const feeStr = slot.fees_per_hour ?? slot.feePerHour ?? slot.feesPerHour ?? "0";
       const fee = parseFloat(feeStr);
       return `$${isNaN(fee) ? "0.00" : fee.toFixed(2)}`;
@@ -159,7 +158,7 @@ const Slots: React.FC = () => {
           <div className="w-full my-14">
             <div className="w-full justify-end sm:justify-between flex mb-6 items-center">
               <div>
-                <span className="hidden sm:flex my-8 text-xl">All slots</span>
+                <span className="hidden sm:flex my-8 text-xl">All Parkings</span>
 
                 <div className="flex items-center justify-center space-x-6 mt-8">
                   <button
@@ -167,7 +166,7 @@ const Slots: React.FC = () => {
                     onClick={() => setIsModalOpen(true)}
                     aria-label="Register new parking slot"
                   >
-                    Register New Slot in Parking
+                    Register New Parking
                   </button>
 
                   <span className="text-gray-500 font-medium">or</span>
@@ -177,7 +176,7 @@ const Slots: React.FC = () => {
                     onClick={() => setIsMultipleModalOpen(true)}
                     aria-label="Register multiple parking slots"
                   >
-                    Register Many Slots at Same Time
+                    Register Parkings in Bulk
                   </button>
                 </div>
               </div>

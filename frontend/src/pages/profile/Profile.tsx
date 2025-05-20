@@ -33,7 +33,7 @@ const Profile = () => {
         {/* Profile Header */}
         <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
           <img
-            src="https://picsum.photos/200/300" // you can update this to user's photo if you add photo in future
+            src="https://picsum.photos/200/300"
             alt="User Avatar"
             className="w-32 h-32 rounded-full object-cover border-4 border-[#1967d2]"
           />

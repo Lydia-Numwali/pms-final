@@ -4,7 +4,7 @@ import { logout } from "@/redux/slices/userReducer";
 import React from "react";
 import { BiLogOut } from "react-icons/bi";
 import { MdDashboard, MdEventAvailable } from "react-icons/md";
-import { FaCar, FaClipboardList } from "react-icons/fa";
+import { FaCar, FaClipboardList,FaTabletAlt } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
@@ -34,6 +34,11 @@ const Sidebar: React.FC = () => {
       name: "Requests",
       path: "/requests",
       icon: <FaClipboardList size={20} />,
+    },
+    {
+      name: "Reports",
+      path: "/reports",
+      icon: <FaTabletAlt size={20} />,
     },
   ];
 

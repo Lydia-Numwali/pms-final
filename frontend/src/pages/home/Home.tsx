@@ -219,7 +219,7 @@ const Home: React.FC = () => {
   ]);
 
   return (
-    <div className="w-full flex min-h-screen">
+    <div className="w-full flex min-h-screen bg-gradient-to-br from-blue-100 via-white to-blue-50">
       <Sidebar />
       <Helmet>
         <title>Home</title>

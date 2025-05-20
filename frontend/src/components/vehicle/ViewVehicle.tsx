@@ -1,13 +1,6 @@
 import React from "react";
 import { Modal } from "@mantine/core";
 import { IVehicle } from "@/types";
-import {
-  FaCar,
-  FaPalette,
-  FaRegIdCard,
-  FaIndustry,
-  FaLayerGroup,
-} from "react-icons/fa";
 
 interface ViewVehicleModalProps {
   isOpen: boolean;
@@ -42,37 +35,27 @@ const ViewVehicleModal: React.FC<ViewVehicleModalProps> = ({
       <div className="mt-4 space-y-4">
         {[
           {
-            icon: FaRegIdCard,
             label: "Plate Number",
             value: vehicle.plateNumber,
           },
           {
-            icon: FaCar,
             label: "Vehicle Type",
             value: vehicle.vehicleType,
           },
           {
-            icon: FaLayerGroup,
             label: "Model",
             value: vehicle.model,
           },
           {
-            icon: FaPalette,
             label: "Color",
             value: vehicle.color,
           },
           {
-            icon: FaIndustry,
             label: "Manufacturer",
             value: vehicle.maker,
           },
-        ].map(({ icon: Icon, label, value }) => (
+        ].map(({ label, value }) => (
           <div key={label} className="flex items-center gap-3">
-            <Icon
-              className="text-primary-blue flex-shrink-0"
-              size={20}
-              aria-hidden="true"
-            />
             <p>
               <strong className="text-gray-600">{label}:</strong>{" "}
               <span className="text-gray-900">{value}</span>

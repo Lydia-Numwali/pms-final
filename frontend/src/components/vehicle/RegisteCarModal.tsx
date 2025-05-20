@@ -87,7 +87,7 @@ const CreateVehicleModal: React.FC<ModalProps> = ({
               value={formData.plateNumber}
               onChange={handleChange}
               className="border rounded w-full p-2"
-              placeholder="e.g., RAB123C"
+              placeholder="RAA001A"
             />
             {errors.plateNumber && (
               <p className="text-red-500 text-sm">{errors.plateNumber}</p>

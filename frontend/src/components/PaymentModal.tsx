@@ -33,7 +33,7 @@ const PaymentFeeModal: React.FC<PaymentFeeModalProps> = ({
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 px-4">
       <div className="bg-white w-full max-w-lg sm:rounded-2xl shadow-2xl p-6 sm:p-8 animate-fade-in-up transition-all duration-300">
         <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          💳 Payment Details
+           Payment Details
         </h2>
 
         {/* Info Section */}
@@ -73,9 +73,9 @@ const PaymentFeeModal: React.FC<PaymentFeeModalProps> = ({
             <option value="" disabled>
               Select a method
             </option>
-            <option value={PaymentMethod.CASH}>💵 Cash</option>
-            <option value={PaymentMethod.CARD}>💳 Card</option>
-            <option value={PaymentMethod.MOBILE_MONEY}>📱 Mobile Money</option>
+            <option value={PaymentMethod.CASH}>Cash</option>
+            <option value={PaymentMethod.CARD}>Card</option>
+            <option value={PaymentMethod.MOBILE_MONEY}>Mobile Money</option>
           </select>
         </div>
 
